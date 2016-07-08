@@ -6,8 +6,7 @@
     <servlet-class>init.JDBCInit</servlet-class>
     <load-on-startup>1</load-on-startup>
   </servlet>
-  
- <context-param>
+  <context-param>
     <param-name>mysql_forname</param-name>
     <param-value>com.mysql.jdbc.Driver</param-value>
   </context-param>
@@ -22,6 +21,14 @@
   <context-param>
     <param-name>mysql_pw</param-name>
     <param-value>z1f5d8a6</param-value>
+  </context-param>
+  <context-param>
+    <param-name>pool_driver</param-name>
+    <param-value>org.apache.commons.dbcp2.PoolingDriver</param-value>
+  </context-param>
+  <context-param>
+    <param-name>pool_dpcp</param-name>
+    <param-value>jdbc:apache:commons:dbcp:</param-value>
   </context-param>
   
   <jsp-config>

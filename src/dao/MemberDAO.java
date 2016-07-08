@@ -29,7 +29,7 @@ public class MemberDAO {
 			psmt = conn.prepareStatement(sql);
 			rs = psmt.executeQuery();
 			while(rs.next()){
-				list.add(new MemberDTO(rs.getString(1), rs.getString(2)));
+				list.add(new MemberDTO(rs.getString(2), rs.getString(3)));
 			}
 		}catch(Exception e){
 			System.out.println(e.getMessage());

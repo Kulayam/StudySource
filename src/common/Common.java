@@ -8,6 +8,14 @@ import java.sql.SQLException;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.apache.tomcat.dbcp.dbcp2.ConnectionFactory;
+import org.apache.tomcat.dbcp.dbcp2.DriverManagerConnectionFactory;
+import org.apache.tomcat.dbcp.dbcp2.PoolableConnection;
+import org.apache.tomcat.dbcp.dbcp2.PoolableConnectionFactory;
+import org.apache.tomcat.dbcp.dbcp2.PoolingDriver;
+import org.apache.tomcat.dbcp.pool2.impl.GenericObjectPool;
+import org.apache.tomcat.dbcp.pool2.impl.GenericObjectPoolConfig;
+
 public class Common {
 	public static Common common = new Common();
 	Connection conn;
@@ -21,8 +29,7 @@ public class Common {
 		String password = req.getServletContext().getInitParameter("mysql_pw");
 		try {
 			conn = DriverManager.getConnection(url, user, password);
-			System.out.println("conn 완료");
-		} catch (SQLException e) {
+		} catch (Exception e) {
 			System.out.println("에러");
 			e.printStackTrace();
 		}
