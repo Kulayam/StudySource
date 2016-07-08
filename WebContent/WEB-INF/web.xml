@@ -1,27 +1,36 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://xmlns.jcp.org/xml/ns/javaee" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd" id="WebApp_ID" version="3.1">
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://xmlns.jcp.org/xml/ns/javaee" xmlns:jsp="http://java.sun.com/xml/ns/javaee/jsp" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd" id="WebApp_ID" version="3.1">
   <display-name>JSPLibrary</display-name>
+  <servlet>
+    <servlet-name>JDBCInit</servlet-name>
+    <servlet-class>init.JDBCInit</servlet-class>
+    <load-on-startup>1</load-on-startup>
+  </servlet>
   
-  
-  <jsp-config>
-  	<jsp-property-group>
-  		<url-pattern>/*</url-pattern>
-  		<include-prelude>/HeadSub.jsp</include-prelude>
-  		<include-coda>/TailSub.jsp</include-coda>
-  	</jsp-property-group>
-  </jsp-config>
-  
- <!--  <context-param>
-  	<param-name>javax.servlet.jsp.jstl.fm.localizationContext</param-name>
-  	<param-value>resource.message</param-value>
+ <context-param>
+    <param-name>mysql_forname</param-name>
+    <param-value>com.mysql.jdbc.Driver</param-value>
+  </context-param>
+  <context-param>
+    <param-name>mysql_url</param-name>
+    <param-value>jdbc:mysql://localhost:3306/study</param-value>
+  </context-param>
+  <context-param>
+    <param-name>mysql_id</param-name>
+    <param-value>root</param-value>
+  </context-param>
+  <context-param>
+    <param-name>mysql_pw</param-name>
+    <param-value>z1f5d8a6</param-value>
   </context-param>
   
-  <context-param>
-  	<param-name>javax.servlet.jsp.jstl.fmt.timeZone</param-name>
-  	<param-value>Hongkong</param-value>
-  </context-param> -->
-  
-  
+  <jsp-config>
+    <jsp-property-group>
+      <url-pattern>/*</url-pattern>
+      <include-prelude>/HeadSub.jspf</include-prelude>
+      <include-coda>/TailSub.jspf</include-coda>
+    </jsp-property-group>
+  </jsp-config>
   <welcome-file-list>
     <welcome-file>index.html</welcome-file>
     <welcome-file>index.htm</welcome-file>
@@ -30,5 +39,4 @@
     <welcome-file>default.htm</welcome-file>
     <welcome-file>default.jsp</welcome-file>
   </welcome-file-list>
-  
 </web-app>
