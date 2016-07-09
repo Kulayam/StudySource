@@ -23,14 +23,14 @@ public class Login extends HttpServlet {
 	}
 
 	protected void doPost(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
-		req.setCharacterEncoding("UTF-8");
+		/*req.setCharacterEncoding("UTF-8");
 		SqlLibrary sl = SqlLibrary.getInstance();
 		System.out.println("id : " + req.getParameter("id"));
 		if(sl.loginCheck(req, req.getParameter("id"), req.getParameter("pw"))){
 			req.getRequestDispatcher("LoginOk.jsp").forward(req, res);
 		}else{
 			res.sendRedirect("LoginFail.jsp");
-		}
+		}*/
 	}
 
 }

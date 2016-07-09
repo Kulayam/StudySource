@@ -5,38 +5,34 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 
+import javax.naming.Context;
+import javax.naming.InitialContext;
+import javax.naming.NamingException;
 import javax.servlet.http.HttpServletRequest;
+import javax.sql.DataSource;
 
-import common.Common;
+import common.SqlCommon;
 import dto.MemberDTO;
 
 public class MemberDAO {
 	
-	Common common;
+	SqlCommon sqlCommon;
 	Connection conn;
 	PreparedStatement psmt;
 	ResultSet rs;
 	public MemberDAO() {
 		super();
-		common = Common.getInstance();
+		sqlCommon = SqlCommon.getInstance();
 	}
 	
 	public ArrayList<MemberDTO> getMembers(HttpServletRequest req){
 		ArrayList<MemberDTO> list = new ArrayList<MemberDTO>();
-		conn = common.getConnection(req);
 		String sql = " select * from member ";
-		try{
-			psmt = conn.prepareStatement(sql);
-			rs = psmt.executeQuery();
-			while(rs.next()){
-				list.add(new MemberDTO(rs.getString(2), rs.getString(3)));
-			}
-		}catch(Exception e){
-			System.out.println(e.getMessage());
-		}finally{
-			common.close(psmt, rs);
-		}
-		
+		try {
+			rs = sqlCommon.getSelectResultSet(req,sql);
+			while(rs.next()) list.add(new MemberDTO(rs.getString(1), rs.getString(2)));
+		} catch (Exception e) {e.printStackTrace();}
+		finally{sqlCommon.close(rs);}
 		return list;
 	}
 }

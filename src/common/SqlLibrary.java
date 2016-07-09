@@ -11,16 +11,16 @@ import dto.MemberDTO;
 
 public class SqlLibrary {
 	public static SqlLibrary sl = new SqlLibrary();
-	Common common;
+	SqlCommon common;
 	Connection conn;
 	PreparedStatement psmt;
 	ResultSet rs;
 	private SqlLibrary(){
-		this.common = Common.getInstance();
+		this.common = SqlCommon.getInstance();
 		
 	}
 	
-	public String getPassword(HttpServletRequest req, String pw){
+	/*public String getPassword(HttpServletRequest req, String pw){
 		String password = "";
 		conn = common.getConnection(req);
 		try {
@@ -66,5 +66,5 @@ public class SqlLibrary {
 		}
 		return isBool;
 	}
-	
+	*/
 }

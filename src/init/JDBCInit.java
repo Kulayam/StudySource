@@ -21,11 +21,11 @@ public class JDBCInit extends HttpServlet {
     @Override
     public void init(ServletConfig config) throws ServletException {
     	super.init(config);
-    	String forName = config.getServletContext().getInitParameter("mysql_forname");
+    	//String forName = config.getServletContext().getInitParameter("mysql_forname");
     	
     	try{
-    		Class.forName(forName);
-    		initConnectionPool(config);
+    		//Class.forName(forName);
+    		//initConnectionPool(config);
     	}catch(Exception e){
     		throw new RuntimeException();
     	}
@@ -37,18 +37,21 @@ public class JDBCInit extends HttpServlet {
 		String user = config.getServletContext().getInitParameter("mysql_id");
 		String password = config.getServletContext().getInitParameter("mysql_pw");
 		try {
-			System.out.println("2");
-			ConnectionFactory connFactory = new DriverManagerConnectionFactory(url, user, password);
-			PoolableConnectionFactory poolableConnFactory = new PoolableConnectionFactory(connFactory, null);
+			ConnectionFactory connFactory = 
+					new DriverManagerConnectionFactory(url, user, password);
+
+			PoolableConnectionFactory poolableConnFactory = 
+					new PoolableConnectionFactory(connFactory, null);
 			poolableConnFactory.setValidationQuery("select 1");
-			System.out.println("3");
+
 			GenericObjectPoolConfig poolConfig = new GenericObjectPoolConfig();
 			poolConfig.setTimeBetweenEvictionRunsMillis(1000L * 60L * 5L);
 			poolConfig.setTestWhileIdle(true);
 			poolConfig.setMinIdle(4);
-			poolConfig.setMaxIdle(50);
-			System.out.println("4");
-			GenericObjectPool<PoolableConnection> connectionPool = new GenericObjectPool<>(poolableConnFactory,poolConfig);
+			poolConfig.setMaxTotal(50);
+
+			GenericObjectPool<PoolableConnection> connectionPool = 
+					new GenericObjectPool<>(poolableConnFactory, poolConfig);
 			poolableConnFactory.setPool(connectionPool);
 			System.out.println("5");
 			Class.forName(config.getServletContext().getInitParameter("pool_driver"));
