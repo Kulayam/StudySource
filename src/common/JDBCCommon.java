@@ -20,21 +20,20 @@ import org.apache.tomcat.dbcp.dbcp2.PoolingDriver;
 import org.apache.tomcat.dbcp.pool2.impl.GenericObjectPool;
 import org.apache.tomcat.dbcp.pool2.impl.GenericObjectPoolConfig;
 
-public class SqlCommon {
-	public static SqlCommon sqlCommon = new SqlCommon();
+public class JDBCCommon {
+	public static JDBCCommon jdbcCommon = new JDBCCommon();
 	public Connection conn;
 	public PreparedStatement psmt;
 	public ResultSet rs;
-	private SqlCommon(){
+	private JDBCCommon(){
 		
 	}
 	
-	public Connection getConnection(HttpServletRequest req){
+	public Connection getConnection(){
 		Context init;
 		try {
 			init = new InitialContext();
-			String lookup = req.getServletContext().getInitParameter("lookup");
-			DataSource ds = (DataSource) init.lookup(lookup);
+			DataSource ds = (DataSource) init.lookup("java:comp/env/jdbc/JSPLibrary");
 			conn = ds.getConnection();
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -52,6 +51,14 @@ public class SqlCommon {
 		
 	}
 	
+	public void close(PreparedStatement psmt){
+		try {
+			if(this.psmt != null) psmt.close();
+			if(this.conn != null) conn.close();
+		} catch (Exception e) {}
+		
+	}
+	
 	public void close(PreparedStatement psmt, ResultSet rs){
 		try {
 			if(rs != null) rs.close();
@@ -61,19 +68,8 @@ public class SqlCommon {
 		
 	}
 	
-	public ResultSet getSelectResultSet(HttpServletRequest req, String sql){
-		try {
-			conn = getConnection(req);
-			psmt = conn.prepareStatement(sql);
-			rs = psmt.executeQuery();
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-		return rs;
-	}
-	
-	public static SqlCommon getInstance(){
-		return sqlCommon;
+	public static JDBCCommon getInstance(){
+		return jdbcCommon;
 	}
 	
 	

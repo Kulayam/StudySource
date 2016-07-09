@@ -8,9 +8,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import MemberService.MemberExecute;
-import service.ActionService;
-
 /**
  * Servlet implementation class MemberController
  */
@@ -33,8 +30,7 @@ public class MemberController extends HttpServlet {
 	private void action(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
 		System.out.println("action");
 		req.setCharacterEncoding("UTF-8");
-		ActionService sv = new MemberExecute();
-		sv.execute(req, res);
+		//sv.execute(req, res);
 		req.getRequestDispatcher("MemberCheck.jsp").forward(req, res);
 	}
 }
