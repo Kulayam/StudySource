@@ -1,4 +1,8 @@
 <%@ tag language="java" pageEncoding="UTF-8"%>
-<jsp:useBean id="now" class="java.util.Date" />
-<fmt:formatDate value="${now }" pattern="yyyy-MM-dd" var="nowDate" />
-<c:out value="${nowDate }" />
+<%@ tag import = "java.util.Calendar" %>
+<%
+    Calendar cal = Calendar.getInstance();
+%>
+<%= cal.get(Calendar.YEAR) %>년
+<%= cal.get(Calendar.MONTH)+1 %>월
+<%= cal.get(Calendar.DATE) %>일
