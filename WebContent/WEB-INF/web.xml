@@ -9,8 +9,24 @@
   </resource-ref>
   <jsp-config>
     <jsp-property-group>
-      <url-pattern>*.jsp</url-pattern>
+      <url-pattern>/*.jsp</url-pattern>
       <include-prelude>/HeadSub.jspf</include-prelude>
+    </jsp-property-group>
+  </jsp-config>
+  
+  <jsp-config>
+    <jsp-property-group>
+      <url-pattern>/TagTest/*.jsp</url-pattern>
+      <url-pattern>/Study/*.jsp</url-pattern>
+      <url-pattern>/Index.jsp</url-pattern>
+      <include-prelude>/Head.jspf</include-prelude>
+      <include-coda>/Tail.jspf</include-coda>
+    </jsp-property-group>
+  </jsp-config>
+  
+  <jsp-config>
+    <jsp-property-group>
+      <url-pattern>*.jsp</url-pattern>
       <include-coda>/TailSub.jspf</include-coda>
     </jsp-property-group>
   </jsp-config>
