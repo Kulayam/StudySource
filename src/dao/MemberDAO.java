@@ -25,18 +25,18 @@ public class MemberDAO {
 	ResultSet rs;
 	public MemberDAO() {
 		super();
-		ju = JDBCUtil.getJDBCUtil();
+		ju = JDBCUtil.getInstance();
 	}
 	
 	public boolean login(String id, String pw){
 		String[] memberInfo = {id, pw};
-		String getPw = CommonUtil.getCommonUtil().getPassword(pw);
+		String getPw = CommonUtil.getInstance().getPassword(pw);
 		String query = "select * from member id = ? and pw = ?";
 		boolean isMember = false;
 		Object obj = null;
 		obj = ju.getObjectExecuteQuery(new Work() {
 			@Override
-			public ArrayList<Object> execuete(ArrayList<Object> list, ResultSet rs)
+			public ArrayList<Object> execute(ArrayList<Object> list, ResultSet rs)
 					throws SQLException {
 				if(rs.next()) list.add(new MemberDTO(rs.getString(1), rs.getString(2)));
 				return list;

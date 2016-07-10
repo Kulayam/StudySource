@@ -29,44 +29,6 @@ public class JDBCCommon {
 		
 	}
 	
-	public Connection getConnection(){
-		Context init;
-		try {
-			init = new InitialContext();
-			DataSource ds = (DataSource) init.lookup("java:comp/env/jdbc/JSPLibrary");
-			conn = ds.getConnection();
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		return conn;
-	}
-	
-	
-	public void close(ResultSet rs){
-		try {
-			if(rs != null) rs.close();
-			if(this.psmt != null) psmt.close();
-			if(this.conn != null) conn.close();
-		} catch (Exception e) {}
-		
-	}
-	
-	public void close(PreparedStatement psmt){
-		try {
-			if(this.psmt != null) psmt.close();
-			if(this.conn != null) conn.close();
-		} catch (Exception e) {}
-		
-	}
-	
-	public void close(PreparedStatement psmt, ResultSet rs){
-		try {
-			if(rs != null) rs.close();
-			if(psmt != null) psmt.close();
-			if(conn != null) conn.close();
-		} catch (Exception e) {}
-		
-	}
 	
 	public static JDBCCommon getInstance(){
 		return jdbcCommon;
