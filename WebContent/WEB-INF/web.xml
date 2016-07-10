@@ -14,12 +14,6 @@
       <include-coda>/TailSub.jspf</include-coda>
     </jsp-property-group>
   </jsp-config>
- <!--  <jsp-config>
-    <jsp-property-group>
-      <url-pattern>*.tag</url-pattern>
-      <include-prelude>/TagInclude/Common.jspf</include-prelude>
-    </jsp-property-group>
-  </jsp-config>  -->
   <welcome-file-list>
     <welcome-file>index.html</welcome-file>
     <welcome-file>index.htm</welcome-file>
