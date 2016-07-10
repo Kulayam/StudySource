@@ -37,28 +37,11 @@ public class JDBCUtil {
 	}
 	
 	
-	public void close(ResultSet rs){
+	public void close(){
 		try {
 			if(rs != null) rs.close();
 			if(this.psmt != null) psmt.close();
 			if(this.conn != null) conn.close();
-		} catch (Exception e) {}
-		
-	}
-	
-	public void close(PreparedStatement psmt){
-		try {
-			if(this.psmt != null) psmt.close();
-			if(this.conn != null) conn.close();
-		} catch (Exception e) {}
-		
-	}
-	
-	public void close(PreparedStatement psmt, ResultSet rs){
-		try {
-			if(rs != null) rs.close();
-			if(psmt != null) psmt.close();
-			if(conn != null) conn.close();
 		} catch (Exception e) {}
 		
 	}
@@ -71,7 +54,7 @@ public class JDBCUtil {
 		}catch(Exception e){
 			e.printStackTrace();
 		}finally{
-			close(this.psmt, this.rs);
+			close();
 		}
 		
 		if(!list.isEmpty()){
@@ -85,13 +68,13 @@ public class JDBCUtil {
 		Object obj = null;
 		ArrayList<Object> list = new ArrayList<Object>();
 		try {
-			this.rs = getResultSetExecuteQuery(query, parameter);
-			list = work.execute(list, this.rs);
+			rs = getResultSetExecuteQuery(query, parameter);
+			list = work.execute(list, rs);
 			if(!list.isEmpty()) obj = list.get(0);
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}finally{
-			close(this.psmt, this.rs);
+			close();
 		}
 		return obj;
 	}
@@ -106,7 +89,7 @@ public class JDBCUtil {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}finally{
-			close(this.psmt, this.rs);
+			close();
 		}
 		return obj;
 	}
@@ -114,39 +97,39 @@ public class JDBCUtil {
 	
 	public ResultSet getResultSetExecuteQuery(String query, Object[] parameter) throws SQLException{
 		try{
-			this.psmt = setQuery(query, parameter);
+			psmt = setQuery(query, parameter);
 		}catch (Exception e) {
 			System.out.println(e.getMessage());
 		}
-		return this.psmt.executeQuery();
+		return psmt.executeQuery();
 	}
 	
 	public ResultSet getResultSetExecuteQuery(String query, Object parameter) throws SQLException{
 		try{
-			this.psmt = setQuery(query, parameter);
+			psmt = setQuery(query, parameter);
 		}catch (Exception e) {
 			System.out.println(e.getMessage());
 		}
-		return this.psmt.executeQuery();
+		return psmt.executeQuery();
 	}
 	
 	public PreparedStatement setQuery(String query, Object[] parameter) throws SQLException{
-		this.conn = getConnection();
-		this.psmt = this.conn.prepareStatement(query);
+		conn = getConnection();
+		psmt = conn.prepareStatement(query);
 		if(parameter != null)
 		for(int i = 0; i < parameter.length; i++){
 			if(parameter[i] instanceof String) this.psmt.setString(i+1, (String) parameter[i]);
 			else if(parameter[i] instanceof Integer) this.psmt.setInt(i+1, (int) parameter[i]);
 		}
-		return this.psmt;
+		return psmt;
 	}
 	
 	public PreparedStatement setQuery(String query, Object parameter) throws SQLException{
-		this.conn = getConnection();
-		this.psmt = this.conn.prepareStatement(query);
+		conn = getConnection();
+		this.psmt = conn.prepareStatement(query);
 		if(parameter != null)
-			if(parameter instanceof String) this.psmt.setString(1, (String) parameter);
-			else if(parameter instanceof Integer) this.psmt.setInt(1, (int) parameter);
-		return this.psmt;
+			if(parameter instanceof String) psmt.setString(1, (String) parameter);
+			else if(parameter instanceof Integer) psmt.setInt(1, (int) parameter);
+		return psmt;
 	}
 }
